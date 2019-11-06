@@ -71,76 +71,76 @@ pule esse método completamente e chame `` addDataSourceProperty ("pass", ...) `
 ##### Frequently used
 
 &#9989;``autoCommit``<br/>
-This property controls the default auto-commit behavior of connections returned from the pool.
-It is a boolean value.
+Essa propriedade controla o comportamento de confirmação automática padrão das conexões retornadas do pool.
+É um valor booleano.
 *Default: true*
 
 &#8986;``connectionTimeout``<br/>
-This property controls the maximum number of milliseconds that a client (that's you) will wait
-for a connection from the pool.  If this time is exceeded without a connection becoming
-available, a SQLException will be thrown.  Lowest acceptable connection timeout is 250 ms.
+Essa propriedade controla o número máximo de milissegundos que um cliente (que é você) aguardará
+para uma conexão da piscina. Se esse tempo for excedido sem que uma conexão se torne
+disponível, uma SQLException será lançada. O tempo limite de conexão aceitável mais baixo é de 250 ms.
 *Default: 30000 (30 seconds)*
 
 &#8986;``idleTimeout``<br/>
-This property controls the maximum amount of time that a connection is allowed to sit idle in the
-pool.  **This setting only applies when ``minimumIdle`` is defined to be less than ``maximumPoolSize``.**
-Idle connections will *not* be retired once the pool reaches ``minimumIdle`` connections.  Whether a
-connection is retired as idle or not is subject to a maximum variation of +30 seconds, and average 
-variation of +15 seconds.  A connection will never be retired as idle *before* this timeout.  A value
-of 0 means that idle connections are never removed from the pool.  The minimum allowed value is 10000ms
-(10 seconds).
+Essa propriedade controla a quantidade máxima de tempo que uma conexão pode ficar ociosa no
+piscina. **Esta configuração só se aplica quando `` minimumIdle`` é definido como menor que `` maximumPoolSize``.**
+As conexões inativas *não* serão desativadas quando o pool atingir as conexões `` minimumIdle``. Se um
+a conexão é desativada ou ociosa está sujeita a uma variação máxima de +30 segundos e a média
+variação de +15 segundos. Uma conexão nunca será desativada como inativa *antes* nesse tempo limite. Um valor
+de 0 significa que as conexões inativas nunca são removidas do pool. O valor mínimo permitido é 10000ms
+(10 segundos).
 *Default: 600000 (10 minutes)*
 
 &#8986;``maxLifetime``<br/>
-This property controls the maximum lifetime of a connection in the pool.  An in-use connection will
-never be retired, only when it is closed will it then be removed.  On a connection-by-connection
-basis, minor negative attenuation is applied to avoid mass-extinction in the pool.  **We strongly recommend
-setting this value, and it should be several seconds shorter than any database or infrastructure imposed
-connection time limit.**  A value of 0 indicates no maximum lifetime (infinite lifetime), subject of
-course to the ``idleTimeout`` setting.
+Esta propriedade controla a vida útil máxima de uma conexão no pool. Uma conexão em uso será
+nunca será aposentado, somente quando estiver fechado será removido. Em uma conexão por conexão
+Com base nisso, uma atenuação negativa menor é aplicada para evitar a extinção em massa no pool. **Recomendamos vivamente
+definir esse valor e deve ser vários segundos mais curto que qualquer banco de dados ou infraestrutura imposta
+limite de tempo de conexão.** Um valor 0 indica que não há vida útil máxima (vida útil infinita), sujeita a
+curso para a configuração `` idleTimeout``.
 *Default: 1800000 (30 minutes)*
 
 &#128288;``connectionTestQuery``<br/>
-**If your driver supports JDBC4 we strongly recommend not setting this property.** This is for 
-"legacy" drivers that do not support the JDBC4 ``Connection.isValid() API``.  This is the query that
-will be executed just before a connection is given to you from the pool to validate that the 
-connection to the database is still alive. *Again, try running the pool without this property,
-AnterosDBCP will log an error if your driver is not JDBC4 compliant to let you know.*
+**Se o seu driver suportar JDBC4, é altamente recomendável não configurar esta propriedade.** Isto é para
+Drivers "legados" que não suportam a JDBC4 `` Connection.isValid () API``. Esta é a consulta que
+será executado imediatamente antes de uma conexão ser fornecida a partir do pool para validar que o
+a conexão com o banco de dados ainda está ativa. *Novamente, tente executar o pool sem essa propriedade,
+O AnterosDBCP registrará um erro se o seu driver não for compatível com JDBC4 para que você saiba.*
 *Default: none*
 
 &#128290;``minimumIdle``<br/>
-This property controls the minimum number of *idle connections* that AnterosDBCP tries to maintain
-in the pool.  If the idle connections dip below this value and total connections in the pool are less than ``maximumPoolSize``,
-AnterosDBCP will make a best effort to add additional connections quickly and efficiently.
-However, for maximum performance and responsiveness to spike demands,
-we recommend *not* setting this value and instead allowing AnterosDBCP to act as a *fixed size* connection pool.
+
+Esta propriedade controla o número mínimo de *conexões inativas* que o AnterosDBCP tenta manter
+no pool. Se as conexões inativas estiverem abaixo desse valor e o total de conexões no pool for menor que `` maximumPoolSize``,
+O AnterosDBCP fará o possível para adicionar conexões adicionais de maneira rápida e eficiente.
+No entanto, para obter o máximo desempenho e capacidade de resposta às demandas,
+recomendamos *não* definir esse valor e permitir que o AnterosDBCP atue como um conjunto de conexões *de tamanho fixo*.
 *Default: same as maximumPoolSize*
 
 &#128290;``maximumPoolSize``<br/>
-This property controls the maximum size that the pool is allowed to reach, including both
-idle and in-use connections.  Basically this value will determine the maximum number of
-actual connections to the database backend.  A reasonable value for this is best determined
-by your execution environment.  When the pool reaches this size, and no idle connections are
-available, calls to getConnection() will block for up to ``connectionTimeout`` milliseconds
-before timing out. 
+Essa propriedade controla o tamanho máximo que o pool pode atingir, incluindo ambos
+conexões inativas e em uso. Basicamente, esse valor determinará o número máximo de
+conexões reais com o back-end do banco de dados. Um valor razoável para isso é melhor determinado
+pelo seu ambiente de execução. Quando o pool atinge esse tamanho e não há conexões inativas
+disponível, as chamadas para getConnection () serão bloqueadas por até milissegundos `` connectionTimeout``
+antes de atingir o tempo limite.
 *Default: 10*
 
 &#128200;``metricRegistry``<br/>
-This property is only available via programmatic configuration or IoC container.  This property
-allows you to specify an instance of a *Codahale/Dropwizard* ``MetricRegistry`` to be used by the
-pool to record various metrics.  
+Esta propriedade está disponível apenas via configuração programática ou contêiner de IoC. Está Propriedade
+permite especificar uma instância de um *Codahale / Dropwizard* `` MetricRegistry`` a ser usado pelo
+pool para registrar várias métricas.
 *Default: none*
 
 &#128200;``healthCheckRegistry``<br/>
-This property is only available via programmatic configuration or IoC container.  This property
-allows you to specify an instance of a *Codahale/Dropwizard* ``HealthCheckRegistry`` to be used by the
-pool to report current health information.  
-wiki page for details.
+Esta propriedade está disponível apenas via configuração programática ou contêiner de IoC. Está Propriedade
+permite especificar uma instância de um *Codahale/Dropwizard* `` HealthCheckRegistry`` a ser usado pelo
+pool para relatar informações atuais sobre saúde.
 *Default: none*
 
 &#128288;``poolName``<br/>
-This property represents a user-defined name for the connection pool and appears mainly
-in logging and JMX management consoles to identify pools and pool configurations.
+Essa propriedade representa um nome definido pelo usuário para o conjunto de conexões e aparece principalmente
+nos consoles de log e gerenciamento JMX para identificar conjuntos e configurações de conjuntos.
 *Default: auto-generated*
 
 ##### Infrequently used
