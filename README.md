@@ -1,7 +1,7 @@
-Fast, simple, reliable.  AnterosDBCP is a "zero-overhead" production ready JDBC connection pool.  At roughly 130Kb, the library is very light.  
+Rápido, simples, confiável. O AnterosDBCP é um conjunto de conexões JDBC prontas para produção, com "zero sobrecarga". Com aproximadamente 130 KB, a biblioteca é muito leve.  
 
-&nbsp;&nbsp;&nbsp;<sup>**"Simplicity is prerequisite for reliability."**<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- *Edsger Dijkstra*</sup>
+&nbsp;&nbsp;&nbsp;<sup>**"Simplicidade é pré-requisito para confiabilidade."**<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</sup>
 
 ----------------------------------------------------
 
@@ -14,17 +14,18 @@ _Java 8 thru 11 maven artifact:_
     </dependency>
 ```
 
-Or [download from here](http://search.maven.org/#search%7Cga%7C1%7Cbr.com.anteros.dbcpcp).
+Ou [faça o download daqui](http://search.maven.org/#search%7Cga%7C1%7Cbr.com.anteros.dbcp).
 
 ------------------------------
-#### Configuration (knobs, baby!)
-AnterosDBCP comes with *sane* defaults that perform well in most deployments without additional tweaking. **Every property is optional, except for the "essentials" marked below.**
+#### Configuração
 
-<sup>&#128206;</sup>&nbsp;*AnterosDBCP uses milliseconds for all time values.*
+O AnterosDBCP vem com padrões *sane* que apresentam bom desempenho na maioria das implantações sem ajustes adicionais. **Cada propriedade é opcional, exceto os itens "essenciais" marcados abaixo.**
 
-&#128680;&nbsp;AnterosDBCP relies on accurate timers for both performance and reliability. It is *imperative* that your server is synchronized with a time-source such as an NTP server. *Especially* if your server is running within a virtual machine.  Why? [Read more here](https://dba.stackexchange.com/a/171020). **Do not rely on hypervisor settings to "synchronize" the clock of the virtual machine. Configure time-source synchronization inside the virtual machine.**   If you come asking for support on an issue that turns out to be caused by lack time synchronization, you will be taunted publicly on Twitter.
+<sup>&#128206;</sup>&nbsp;*O AnterosDBCP usa milissegundos para todos os valores de tempo.*
 
-##### Essentials
+&#128680;&nbsp;O AnterosDBCP conta com temporizadores precisos para desempenho e confiabilidade. É *imperativo* que seu servidor esteja sincronizado com uma fonte de tempo, como um servidor NTP. *Especialmente* se o seu servidor estiver executando em uma máquina virtual. Por quê? [Leia mais aqui] (https://dba.stackexchange.com/a/171020). **Não confie nas configurações do hypervisor para "sincronizar" o relógio da máquina virtual. Configure a sincronização da fonte de tempo dentro da máquina virtual.** Se você solicitar suporte em um problema causado por falta de sincronização de tempo, será ridicularizado publicamente no Twitter.
+
+##### Essenciais
 
 &#128288;``dataSourceClassName``<br/>
 This is the name of the ``DataSource`` class provided by the JDBC driver.  Consult the
