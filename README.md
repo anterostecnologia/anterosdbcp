@@ -146,17 +146,18 @@ nos consoles de log e gerenciamento JMX para identificar conjuntos e configuraç
 ##### Infrequently used
 
 &#8986;``initializationFailTimeout``<br/>
-This property controls whether the pool will "fail fast" if the pool cannot be seeded with
-an initial connection successfully.  Any positive number is taken to be the number of 
-milliseconds to attempt to acquire an initial connection; the application thread will be 
-blocked during this period.  If a connection cannot be acquired before this timeout occurs,
-an exception will be thrown.  This timeout is applied *after* the ``connectionTimeout``
-period.  If the value is zero (0), AnterosDBCP will attempt to obtain and validate a connection.
-If a connection is obtained, but fails validation, an exception will be thrown and the pool
-not started.  However, if a connection cannot be obtained, the pool will start, but later 
-efforts to obtain a connection may fail.  A value less than zero will bypass any initial
-connection attempt, and the pool will start immediately while trying to obtain connections
-in the background.  Consequently, later efforts to obtain a connection may fail.
+
+Essa propriedade controla se o pool "falhará rapidamente" se o pool não puder ser semeado com
+uma conexão inicial com sucesso. Qualquer número positivo é considerado o número de
+milissegundos para tentar adquirir uma conexão inicial; o encadeamento do aplicativo será
+bloqueado durante esse período. Se uma conexão não puder ser adquirida antes que esse tempo limite ocorra,
+uma exceção será lançada. Esse tempo limite é aplicado *após* o `` connectionTimeout``
+período. Se o valor for zero (0), o AnterosDBCP tentará obter e validar uma conexão.
+Se uma conexão for obtida, mas falhar na validação, uma exceção será lançada e o pool
+não foi iniciado. No entanto, se uma conexão não puder ser obtida, o pool será iniciado, mas mais tarde
+os esforços para obter uma conexão podem falhar. Um valor menor que zero ignorará qualquer valor inicial
+tentativa de conexão e o pool iniciará imediatamente ao tentar obter conexões
+no fundo. Conseqüentemente, os esforços posteriores para obter uma conexão podem falhar.
 *Default: 1*
 
 &#10062;``isolateInternalQueries``<br/>
@@ -167,127 +168,120 @@ property only applies if ``autoCommit`` is disabled.
 *Default: false*
 
 &#10062;``allowPoolSuspension``<br/>
-This property controls whether the pool can be suspended and resumed through JMX.  This is
-useful for certain failover automation scenarios.  When the pool is suspended, calls to
-``getConnection()`` will *not* timeout and will be held until the pool is resumed.
+Esta propriedade controla se o conjunto pode ser suspenso e retomado através do JMX. Isto é
+útil para determinados cenários de automação de failover. Quando o pool está suspenso, as chamadas para
+`` getConnection () `` *não* expirará o tempo limite e será mantido até que o pool seja reiniciado.
 *Default: false*
 
 &#10062;``readOnly``<br/>
-This property controls whether *Connections* obtained from the pool are in read-only mode by
-default.  Note some databases do not support the concept of read-only mode, while others provide
-query optimizations when the *Connection* is set to read-only.  Whether you need this property
-or not will depend largely on your application and database. 
+Essa propriedade controla se *Conexões* obtidas do pool estão no modo somente leitura por
+padrão. Observe que alguns bancos de dados não suportam o conceito de modo somente leitura, enquanto outros fornecem
+otimizações de consulta quando o *Connection* está definido como somente leitura. Se você precisa desta propriedade
+ou não, dependerá amplamente do seu aplicativo e banco de dados.
 *Default: false*
 
 &#10062;``registerMbeans``<br/>
-This property controls whether or not JMX Management Beans ("MBeans") are registered or not.
+Esta propriedade controla se o JMX Management Beans ("MBeans") está ou não registrado.
 *Default: false*
 
 &#128288;``catalog``<br/>
-This property sets the default *catalog* for databases that support the concept of catalogs.
-If this property is not specified, the default catalog defined by the JDBC driver is used.
+Essa propriedade define o *catálogo* padrão para bancos de dados que suportam o conceito de catálogos.
+Se essa propriedade não for especificada, o catálogo padrão definido pelo driver JDBC será usado.
 *Default: driver default*
 
 &#128288;``connectionInitSql``<br/>
-This property sets a SQL statement that will be executed after every new connection creation
-before adding it to the pool. If this SQL is not valid or throws an exception, it will be
-treated as a connection failure and the standard retry logic will be followed.
+Essa propriedade define uma instrução SQL que será executada após cada nova criação de conexão
+antes de adicioná-lo ao pool. Se esse SQL não for válido ou gerar uma exceção, será
+tratado como uma falha de conexão e a lógica de nova tentativa padrão será seguida.
 *Default: none*
 
 &#128288;``driverClassName``<br/>
-AnterosDBCP will attempt to resolve a driver through the DriverManager based solely on the ``jdbcUrl``,
-but for some older drivers the ``driverClassName`` must also be specified.  Omit this property unless
-you get an obvious error message indicating that the driver was not found.
+O AnterosDBCP tentará resolver um driver através do DriverManager com base apenas no `` jdbcUrl``,
+mas para alguns drivers mais antigos, o `` driverClassName`` também deve ser especificado. Omita esta propriedade, a menos que
+você recebe uma mensagem de erro óbvia indicando que o driver não foi encontrado.
 *Default: none*
 
 &#128288;``transactionIsolation``<br/>
-This property controls the default transaction isolation level of connections returned from
-the pool.  If this property is not specified, the default transaction isolation level defined
-by the JDBC driver is used.  Only use this property if you have specific isolation requirements that are
-common for all queries.  The value of this property is the constant name from the ``Connection``
-class such as ``TRANSACTION_READ_COMMITTED``, ``TRANSACTION_REPEATABLE_READ``, etc.
+Esta propriedade controla o nível de isolamento de transação padrão das conexões retornadas do pool. Se essa propriedade não for especificada, o nível de isolamento da transação padrão definido
+pelo driver JDBC é usado. Use essa propriedade apenas se você tiver requisitos de isolamento específicos que sejam
+comum para todas as consultas. O valor dessa propriedade é o nome constante do `` Connection``
+classe como `` TRANSACTION_READ_COMMITTED``, `` TRANSACTION_REPEATABLE_READ``, etc.
 *Default: driver default*
 
 &#8986;``validationTimeout``<br/>
-This property controls the maximum amount of time that a connection will be tested for aliveness.
-This value must be less than the ``connectionTimeout``.  Lowest acceptable validation timeout is 250 ms.
+Essa propriedade controla a quantidade máxima de tempo que uma conexão será testada quanto à vitalidade.
+Este valor deve ser menor que o `` connectionTimeout``. O tempo limite de validação aceitável mais baixo é de 250 ms.
 *Default: 5000*
 
 &#8986;``leakDetectionThreshold``<br/>
-This property controls the amount of time that a connection can be out of the pool before a
-message is logged indicating a possible connection leak.  A value of 0 means leak detection
-is disabled.  Lowest acceptable value for enabling leak detection is 2000 (2 seconds).
+Essa propriedade controla a quantidade de tempo que uma conexão pode ficar fora do pool antes de um
+mensagem é registrada indicando um possível vazamento de conexão. Um valor 0 significa detecção de vazamento
+está desabilitado. O menor valor aceitável para permitir a detecção de vazamentos é 2000 (2 segundos).
 *Default: 0*
 
 &#10145;``dataSource``<br/>
-This property is only available via programmatic configuration or IoC container.  This property
-allows you to directly set the instance of the ``DataSource`` to be wrapped by the pool, rather than
-having AnterosDBCP construct it via reflection.  This can be useful in some dependency injection
-frameworks. When this property is specified, the ``dataSourceClassName`` property and all
-DataSource-specific properties will be ignored.
+Esta propriedade está disponível apenas via configuração programática ou contêiner de IoC. Está Propriedade
+permite que você defina diretamente a instância do `` DataSource`` a ser agrupada pelo pool, em vez de
+fazendo com que o AnterosDBCP o construa via reflexão. Isso pode ser útil em algumas injeção de dependência
+estruturas. Quando essa propriedade é especificada, a propriedade `` dataSourceClassName`` e todos
+As propriedades específicas do DataSource serão ignoradas.
 *Default: none*
 
 &#128288;``schema``<br/>
-This property sets the default *schema* for databases that support the concept of schemas.
-If this property is not specified, the default schema defined by the JDBC driver is used.
+Esta propriedade define o *esquema* padrão para bancos de dados que suportam o conceito de esquemas.
+Se essa propriedade não for especificada, o esquema padrão definido pelo driver JDBC será usado.
 *Default: driver default*
 
 &#10145;``threadFactory``<br/>
-This property is only available via programmatic configuration or IoC container.  This property
-allows you to set the instance of the ``java.util.concurrent.ThreadFactory`` that will be used
-for creating all threads used by the pool. It is needed in some restricted execution environments
-where threads can only be created through a ``ThreadFactory`` provided by the application container.
+Esta propriedade está disponível apenas via configuração programática ou contêiner de IoC. Está Propriedade
+permite que você defina a instância do `` java.util.concurrent.ThreadFactory`` que será usado
+para criar todos os threads usados ​​pelo pool. É necessário em alguns ambientes de execução restritos
+onde os threads podem ser criados apenas através de um `` ThreadFactory`` fornecido pelo contêiner do aplicativo.
 *Default: none*
 
 &#10145;``scheduledExecutor``<br/>
-This property is only available via programmatic configuration or IoC container.  This property
-allows you to set the instance of the ``java.util.concurrent.ScheduledExecutorService`` that will
-be used for various internally scheduled tasks.  If supplying AnterosDBCP with a ``ScheduledThreadPoolExecutor``
-instance, it is recommended that ``setRemoveOnCancelPolicy(true)`` is used.
+Propriedade permite definir a instância do `` java.util.concurrent.ScheduledExecutorService`` que será
+ser usado para várias tarefas agendadas internamente. Se fornecer ao AnterosDBCP um `` ScheduledThreadPoolExecutor``
+Por exemplo, é recomendável que `` setRemoveOnCancelPolicy (true) `` seja usado.
 *Default: none*
 
 ----------------------------------------------------
 
-#### Missing Knobs
+#### Cache de Instrução
 
-AnterosDBCP has plenty of "knobs" to turn as you can see above, but comparatively less than some other pools.
-This is a design philosophy.  The AnterosDBCP design aesthetic is Minimalism.  In keeping with the
-*simple is better* or *less is more* design philosophy, some configuration axis are intentionally left out.
 
-#### Statement Cache
+Muitos pools de conexão, incluindo Apache DBCP, Vibur, c3p0 e outros, oferecem cache `` PreparedStatement``.
+O AnterosDBCP não. Por quê?
 
-Many connection pools, including Apache DBCP, Vibur, c3p0 and others offer ``PreparedStatement`` caching.
-AnterosDBCP does not.  Why?
+Na camada do conjunto de conexões, `` PreparedStatements`` só pode ser armazenado em cache *por conexão*. Se sua aplicação
+possui 250 consultas comumente executadas e um conjunto de 20 conexões nas quais você está solicitando que o banco de dados mantenha
+5000 planos de execução de consultas - e da mesma forma o pool deve armazenar em cache tantos `` PreparedStatements`` e seus
+gráfico relacionado de objetos.
 
-At the connection pool layer ``PreparedStatements`` can only be cached *per connection*.  If your application
-has 250 commonly executed queries and a pool of 20 connections you are asking your database to hold on to
-5000 query execution plans -- and similarly the pool must cache this many ``PreparedStatements`` and their
-related graph of objects.
+Os principais drivers JDBC do banco de dados já possuem um cache de instruções que pode ser configurado, incluindo PostgreSQL,
+Oracle, Derby, MySQL, DB2 e muitos outros. Os drivers JDBC estão em uma posição única para explorar dados específicos do banco de dados.
+recursos e quase todas as implementações de armazenamento em cache são capazes de compartilhar planos de execução *entre conexões*.
+Isso significa que, em vez de 5000 instruções na memória e planos de execução associados, suas 250 consultas executados normalmente resultam em exatamente 250 planos de execução no banco de dados. Implementações inteligentes nem retêm
+Objetos `` PreparedStatement`` na memória no nível do driver, mas apenas anexam novas instâncias aos IDs de plano existentes.
 
-Most major database JDBC drivers already have a Statement cache that can be configured, including PostgreSQL,
-Oracle, Derby, MySQL, DB2, and many others.  JDBC drivers are in a unique position to exploit database specific
-features, and nearly all of the caching implementations are capable of sharing execution plans *across connections*.
-This means that instead of 5000 statements in memory and associated execution plans, your 250 commonly executed
-queries result in exactly 250 execution plans in the database.  Clever implementations do not even retain
-``PreparedStatement`` objects in memory at the driver-level but instead merely attach new instances to existing plan IDs.
+O uso de um cache de instruções na camada de pool é um [antipadrão] (https://en.wikipedia.org/wiki/Anti-pattern),
+e afetará negativamente o desempenho do aplicativo em comparação com os caches fornecidos pelo driver.
 
-Using a statement cache at the pooling layer is an [anti-pattern](https://en.wikipedia.org/wiki/Anti-pattern),
-and will negatively impact your application performance compared to driver-provided caches.
+#### LTexto da Instrução / Log de Consulta Lento
 
-#### Log Statement Text / Slow Query Logging
-
-Like Statement caching, most major database vendors support statement logging through
-properties of their own driver.  This includes Oracle, MySQL, Derby, MSSQL, and others.  Some
-even support slow query logging.  For those few databases that do not support it, several options are available.
+Como o cache de instruções, a maioria dos principais fornecedores de bancos de dados suporta o log de instruções através de
+propriedades de seu próprio driver. Isso inclui Oracle, MySQL, Derby, MSSQL e outros. Alguns
+até mesmo suporte ao log de consultas lento. Para os poucos bancos de dados que não o suportam, várias opções estão disponíveis.
 
 
 
 
 ----------------------------------------------------
 
-### Initialization
+### Inicialização
 
-You can use the ``AnterosDBCPConfig`` class like so<sup>1</sup>:
+
+Você pode usar o ``AnterosDBCPConfig`` class igual ao<sup>1</sup>:
 ```java
 AnterosDBCPConfig config = new AnterosDBCPConfig();
 config.setJdbcUrl("jdbc:mysql://localhost:3306/simpsons");
@@ -301,7 +295,7 @@ AnterosDBCPDataSource ds = new AnterosDBCPDataSource(config);
 ```
 &nbsp;<sup><sup>1</sup> MySQL-specific example, DO NOT COPY VERBATIM.</sup>
 
-or directly instantiate a ``AnterosDBCPDataSource`` like so:
+ou instanciar diretamente ``AnterosDBCPDataSource`` :
 ```java
 AnterosDBCPDataSource ds = new AnterosDBCPDataSource();
 ds.setJdbcUrl("jdbc:mysql://localhost:3306/simpsons");
@@ -309,13 +303,13 @@ ds.setUsername("bart");
 ds.setPassword("51mp50n");
 ...
 ```
-or property file based:
+ou com arquivo de propriedades:
 ```java
 // Examines both filesystem and classpath for .properties file
 AnterosDBCPConfig config = new AnterosDBCPConfig("/some/path/hikari.properties");
 AnterosDBCPDataSource ds = new AnterosDBCPDataSource(config);
 ```
-Example property file:
+Arquivo de Propriedade de Exemplo:
 ```ini
 dataSourceClassName=org.postgresql.ds.PGSimpleDataSource
 dataSource.user=test
@@ -324,7 +318,7 @@ dataSource.databaseName=mydb
 dataSource.portNumber=5432
 dataSource.serverName=localhost
 ```
-or ``java.util.Properties`` based:
+or ``java.util.Properties``:
 ```java
 Properties props = new Properties();
 props.setProperty("dataSourceClassName", "org.postgresql.ds.PGSimpleDataSource");
@@ -337,20 +331,20 @@ AnterosDBCPConfig config = new AnterosDBCPConfig(props);
 AnterosDBCPDataSource ds = new AnterosDBCPDataSource(config);
 ```
 
-There is also a System property available, ``hikaricp.configurationFile``, that can be used to specify the
-location of a properties file.  If you intend to use this option, construct a ``AnterosDBCPConfig`` or ``AnterosDBCPDataSource``
-instance using the default constructor and the properties file will be loaded.
+Há também uma propriedade System disponível, `` hikaricp.configurationFile``, que pode ser usada para especificar o
+localização de um arquivo de propriedades. Se você pretende usar esta opção, construa um `` AnterosDBCPConfig`` ou `` AnterosDBCPDataSource``
+instância usando o construtor padrão e o arquivo de propriedades será carregado.
 
 
-### Popular DataSource Class Names
+### Nomes populares da classe DataSource
 
-We recommended using ``dataSourceClassName`` instead of ``jdbcUrl``, but either is acceptable.  We'll say that again, *either is acceptable*.
+Recomendamos o uso de `` dataSourceClassName`` em vez de `` jdbcUrl``, mas ambos são aceitáveis. Diremos novamente: *é aceitável*.
 
-&#9888;&nbsp;*Note: Spring Boot auto-configuration users, you need to use ``jdbcUrl``-based configuration.*
+& # 9888; & nbsp; *Nota: Para usuários de configuração automática do Spring Boot, é necessário usar a configuração baseada em `` jdbcUrl``.*
 
-&#9888;&nbsp;The MySQL DataSource is known to be broken with respect to network timeout support. Use ``jdbcUrl`` configuration instead.
+& # 9888; & nbsp; O MySQL DataSource é conhecido por estar quebrado com relação ao suporte de tempo limite da rede. Use a configuração `` jdbcUrl``.
 
-Here is a list of JDBC *DataSource* classes for popular databases:
+Aqui está uma lista de classes JDBC *DataSource* para bancos de dados populares:
 
 | Database         | Driver       | *DataSource* class |
 |:---------------- |:------------ |:-------------------|
@@ -374,11 +368,11 @@ Here is a list of JDBC *DataSource* classes for popular databases:
 
 
 ----------------------------------------------------
-### Requirements
+### Requerimentos
 
- &#8658; Java 8+ (Java 6/7 artifacts are in maintenance mode)<br/>
+ &#8658; Java 8+<br/>
  &#8658; slf4j library<br/>
 
 
-[license]:LICENSE
+[license]:LICENÇA
 [license img]:https://img.shields.io/badge/license-Apache%202-blue.svg
