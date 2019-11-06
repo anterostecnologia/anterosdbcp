@@ -77,13 +77,13 @@ Essa propriedade controla o comportamento de confirmação automática padrão d
 
 &#8986;``connectionTimeout``<br/>
 Essa propriedade controla o número máximo de milissegundos que um cliente (que é você) aguardará
-para uma conexão da piscina. Se esse tempo for excedido sem que uma conexão se torne
+para uma conexão do pool. Se esse tempo for excedido sem que uma conexão se torne
 disponível, uma SQLException será lançada. O tempo limite de conexão aceitável mais baixo é de 250 ms.
 *Default: 30000 (30 seconds)*
 
 &#8986;``idleTimeout``<br/>
 Essa propriedade controla a quantidade máxima de tempo que uma conexão pode ficar ociosa no
-piscina. **Esta configuração só se aplica quando `` minimumIdle`` é definido como menor que `` maximumPoolSize``.**
+pool. **Esta configuração só se aplica quando `` minimumIdle`` é definido como menor que `` maximumPoolSize``.**
 As conexões inativas *não* serão desativadas quando o pool atingir as conexões `` minimumIdle``. Se um
 a conexão é desativada ou ociosa está sujeita a uma variação máxima de +30 segundos e a média
 variação de +15 segundos. Uma conexão nunca será desativada como inativa *antes* nesse tempo limite. Um valor
@@ -281,7 +281,7 @@ até mesmo suporte ao log de consultas lento. Para os poucos bancos de dados que
 ### Inicialização
 
 
-Você pode usar o ``AnterosDBCPConfig`` class igual ao<sup>1</sup>:
+Você pode usar o ``AnterosDBCPConfig`` class assim:<sup>1</sup>:
 ```java
 AnterosDBCPConfig config = new AnterosDBCPConfig();
 config.setJdbcUrl("jdbc:mysql://localhost:3306/simpsons");
