@@ -16,73 +16,19 @@ _Java 8 thru 11 maven artifact:_
 
 Or [download from here](http://search.maven.org/#search%7Cga%7C1%7Cbr.com.anteros.dbcpcp).
 
-----------------------------------------------------
-
-##### JMH Benchmarks :checkered_flag:
-
-Microbenchmarks were created to isolate and measure the overhead of pools using the [JMH microbenchmark framework](http://openjdk.java.net/projects/code-tools/jmh/). You can checkout the [HikariCP benchmark project for details](https://github.com/brettwooldridge/HikariCP-benchmark) and review/run the benchmarks yourself.
-
-![](https://github.com/brettwooldridge/HikariCP/wiki/HikariCP-bench-2.6.0.png)
-
- * One *Connection Cycle* is defined as single ``DataSource.getConnection()``/``Connection.close()``.
- * One *Statement Cycle* is defined as single ``Connection.prepareStatement()``, ``Statement.execute()``, ``Statement.close()``.
-
-<sup>
-<sup>1</sup> Versions: HikariCP 2.6.0, commons-dbcp2 2.1.1, Tomcat 8.0.24, Vibur 16.1, c3p0 0.9.5.2, Java 8u111 <br/>
-<sup>2</sup> Intel Core i7-3770 CPU @ 3.40GHz <br/>
-<sup>3</sup> Uncontended benchmark: 32 threads/32 connections, Contended benchmark: 32 threads, 16 connections <br/>
-<sup>4</sup> Apache Tomcat fails to complete the Statement benchmark when the Tomcat <i>StatementFinalizer</i> is used <a href="https://raw.githubusercontent.com/wiki/brettwooldridge/HikariCP/markdown/Tomcat-Statement-Failure.md">due to excessive garbage collection times</a><br/>
-<sup>5</sup> Apache DBCP fails to complete the Statement benchmark <a href="https://raw.githubusercontent.com/wiki/brettwooldridge/HikariCP/markdown/Dbcp2-Statement-Failure.md">due to excessive garbage collection times</a>
-</sup>
-
-----------------------------------------------------
-#### Analyses :microscope:
-
-#### Spike Demand Pool Comparison
-<a href="https://github.com/brettwooldridge/HikariCP/blob/dev/documents/Welcome-To-The-Jungle.md"><img width="400" align="right" src="https://github.com/brettwooldridge/HikariCP/wiki/Spike-Hikari.png"></a>
-Analysis of HikariCP v2.6, in comparison to other pools, in relation to a unique "spike demand" load.
-
-The customer's environment imposed a high cost of new connection acquisition, and a requirement for a dynamically-sized pool, but yet a need for responsiveness to request spikes.  Read about the spike demand handling [here](https://github.com/brettwooldridge/HikariCP/blob/dev/documents/Welcome-To-The-Jungle.md).
-<br/>
-<br/>
-#### You're [probably] doing it wrong.
-<a href=""><img width="200" align="right" src="https://github.com/brettwooldridge/HikariCP/wiki/Postgres_Chart.png"></a>
-AKA *"What you probably didn't know about connection pool sizing"*.  Watch a video from the Oracle Real-world Performance group, and learn about why connection pools do not need to be sized as large as they often are.  In fact, oversized connection pools have a clear and demonstrable *negative* impact on performance; a 50x difference in the case of the Oracle demonstration.  [Read on to find out](https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing).
-<br/>
-#### WIX Engineering Analysis
-<a href="https://www.wix.engineering/blog/how-does-hikaricp-compare-to-other-connection-pools"><img width="180" align="left" src="https://github.com/brettwooldridge/HikariCP/wiki/Wix-Engineering.png"></a>
-We'd like to thank the guys over at WIX for the unsolicited and deep write-up about HikariCP on their [engineering blog](https://www.wix.engineering/blog/how-does-hikaricp-compare-to-other-connection-pools).  Take a look if you have time.
-<br/>
-<br/>
-<br/>
-#### Failure: Pools behaving badly
-Read our interesting ["Database down" pool challenge](https://github.com/brettwooldridge/HikariCP/wiki/Bad-Behavior:-Handling-Database-Down).
-
-----------------------------------------------------
-#### "Imitation Is The Sincerest Form Of Plagiarism" - <sub><sup>anonymous</sup></sub>
-Open source software like HikariCP, like any product, competes in the free market.  We get it.  We understand that product advancements, once public, are often co-opted.  And we understand that ideas can arise from the zeitgeist; simultaneously and independently.  But the timeline of innovation, particularly in open source projects, is also clear and we want our users to understand the direction of flow of innovation in our space.  It could be demoralizing to see the result of hundreds of hours of thought and research co-opted so easily, and perhaps that is inherent in a free marketplace, but we are not demoralized.  *We are motivated; to widen the gap.*
-
-----------------------------------------------------
-##### User Testimonials
-
-[![](https://github.com/brettwooldridge/HikariCP/wiki/tweet3.png)](https://twitter.com/jkuipers)<br/>
-[![](https://github.com/brettwooldridge/HikariCP/wiki/tweet1.png)](https://twitter.com/steve_objectify)<br/>
-[![](https://github.com/brettwooldridge/HikariCP/wiki/tweet2.png)](https://twitter.com/brettemeyer)<br/>
-[![](https://github.com/brettwooldridge/HikariCP/wiki/tweet4.png)](https://twitter.com/dgomesbr/status/527521925401419776)
-
 ------------------------------
 #### Configuration (knobs, baby!)
-HikariCP comes with *sane* defaults that perform well in most deployments without additional tweaking. **Every property is optional, except for the "essentials" marked below.**
+AnterosDBCP comes with *sane* defaults that perform well in most deployments without additional tweaking. **Every property is optional, except for the "essentials" marked below.**
 
-<sup>&#128206;</sup>&nbsp;*HikariCP uses milliseconds for all time values.*
+<sup>&#128206;</sup>&nbsp;*AnterosDBCP uses milliseconds for all time values.*
 
-&#128680;&nbsp;HikariCP relies on accurate timers for both performance and reliability. It is *imperative* that your server is synchronized with a time-source such as an NTP server. *Especially* if your server is running within a virtual machine.  Why? [Read more here](https://dba.stackexchange.com/a/171020). **Do not rely on hypervisor settings to "synchronize" the clock of the virtual machine. Configure time-source synchronization inside the virtual machine.**   If you come asking for support on an issue that turns out to be caused by lack time synchronization, you will be taunted publicly on Twitter.
+&#128680;&nbsp;AnterosDBCP relies on accurate timers for both performance and reliability. It is *imperative* that your server is synchronized with a time-source such as an NTP server. *Especially* if your server is running within a virtual machine.  Why? [Read more here](https://dba.stackexchange.com/a/171020). **Do not rely on hypervisor settings to "synchronize" the clock of the virtual machine. Configure time-source synchronization inside the virtual machine.**   If you come asking for support on an issue that turns out to be caused by lack time synchronization, you will be taunted publicly on Twitter.
 
 ##### Essentials
 
 &#128288;``dataSourceClassName``<br/>
 This is the name of the ``DataSource`` class provided by the JDBC driver.  Consult the
-documentation for your specific JDBC driver to get this class name, or see the [table](https://github.com/brettwooldridge/HikariCP#popular-datasource-class-names) below.
+documentation for your specific JDBC driver to get this class name, or see the [table](https://github.com/brettwooldridge/AnterosDBCP#popular-datasource-class-names) below.
 Note XA data sources are not supported.  XA requires a real transaction manager like
 [bitronix](https://github.com/bitronix/btm). Note that you do not need this property if you are using
 ``jdbcUrl`` for "old-school" DriverManager-based JDBC driver configuration.
@@ -91,7 +37,7 @@ Note XA data sources are not supported.  XA requires a real transaction manager 
 *- or -*
 
 &#128288;``jdbcUrl``<br/>
-This property directs HikariCP to use "DriverManager-based" configuration.  We feel that DataSource-based
+This property directs AnterosDBCP to use "DriverManager-based" configuration.  We feel that DataSource-based
 configuration (above) is superior for a variety of reasons (see below), but for many deployments there is
 little significant difference.  **When using this property with "old" drivers, you may also need to set
 the  ``driverClassName`` property, but try it first without.**  Note that if this property is used, you may
@@ -105,7 +51,7 @@ specified in the URL itself.
 This property sets the default authentication username used when obtaining *Connections* from
 the underlying driver.  Note that for DataSources this works in a very deterministic fashion by
 calling ``DataSource.getConnection(*username*, password)`` on the underlying DataSource.  However,
-for Driver-based configurations, every driver is different.  In the case of Driver-based, HikariCP
+for Driver-based configurations, every driver is different.  In the case of Driver-based, HikariAnterosDBCPCP
 will use this ``username`` property to set a ``user`` property in the ``Properties`` passed to the
 driver's ``DriverManager.getConnection(jdbcUrl, props)`` call.  If this is not what you need,
 skip this method entirely and call ``addDataSourceProperty("username", ...)``, for example.
@@ -115,7 +61,7 @@ skip this method entirely and call ``addDataSourceProperty("username", ...)``, f
 This property sets the default authentication password used when obtaining *Connections* from
 the underlying driver. Note that for DataSources this works in a very deterministic fashion by
 calling ``DataSource.getConnection(username, *password*)`` on the underlying DataSource.  However,
-for Driver-based configurations, every driver is different.  In the case of Driver-based, HikariCP
+for Driver-based configurations, every driver is different.  In the case of Driver-based, AnterosDBCP
 will use this ``password`` property to set a ``password`` property in the ``Properties`` passed to the
 driver's ``DriverManager.getConnection(jdbcUrl, props)`` call.  If this is not what you need,
 skip this method entirely and call ``addDataSourceProperty("pass", ...)``, for example.
@@ -158,15 +104,15 @@ course to the ``idleTimeout`` setting.
 "legacy" drivers that do not support the JDBC4 ``Connection.isValid() API``.  This is the query that
 will be executed just before a connection is given to you from the pool to validate that the 
 connection to the database is still alive. *Again, try running the pool without this property,
-HikariCP will log an error if your driver is not JDBC4 compliant to let you know.*
+AnterosDBCP will log an error if your driver is not JDBC4 compliant to let you know.*
 *Default: none*
 
 &#128290;``minimumIdle``<br/>
-This property controls the minimum number of *idle connections* that HikariCP tries to maintain
+This property controls the minimum number of *idle connections* that AnterosDBCP tries to maintain
 in the pool.  If the idle connections dip below this value and total connections in the pool are less than ``maximumPoolSize``,
-HikariCP will make a best effort to add additional connections quickly and efficiently.
+AnterosDBCP will make a best effort to add additional connections quickly and efficiently.
 However, for maximum performance and responsiveness to spike demands,
-we recommend *not* setting this value and instead allowing HikariCP to act as a *fixed size* connection pool.
+we recommend *not* setting this value and instead allowing AnterosDBCP to act as a *fixed size* connection pool.
 *Default: same as maximumPoolSize*
 
 &#128290;``maximumPoolSize``<br/>
@@ -175,20 +121,19 @@ idle and in-use connections.  Basically this value will determine the maximum nu
 actual connections to the database backend.  A reasonable value for this is best determined
 by your execution environment.  When the pool reaches this size, and no idle connections are
 available, calls to getConnection() will block for up to ``connectionTimeout`` milliseconds
-before timing out.  Please read [about pool sizing](https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing).
+before timing out. 
 *Default: 10*
 
 &#128200;``metricRegistry``<br/>
 This property is only available via programmatic configuration or IoC container.  This property
 allows you to specify an instance of a *Codahale/Dropwizard* ``MetricRegistry`` to be used by the
-pool to record various metrics.  See the [Metrics](https://github.com/brettwooldridge/HikariCP/wiki/Dropwizard-Metrics)
-wiki page for details.
+pool to record various metrics.  
 *Default: none*
 
 &#128200;``healthCheckRegistry``<br/>
 This property is only available via programmatic configuration or IoC container.  This property
 allows you to specify an instance of a *Codahale/Dropwizard* ``HealthCheckRegistry`` to be used by the
-pool to report current health information.  See the [Health Checks](https://github.com/brettwooldridge/HikariCP/wiki/Dropwizard-HealthChecks)
+pool to report current health information.  
 wiki page for details.
 *Default: none*
 
@@ -205,7 +150,7 @@ an initial connection successfully.  Any positive number is taken to be the numb
 milliseconds to attempt to acquire an initial connection; the application thread will be 
 blocked during this period.  If a connection cannot be acquired before this timeout occurs,
 an exception will be thrown.  This timeout is applied *after* the ``connectionTimeout``
-period.  If the value is zero (0), HikariCP will attempt to obtain and validate a connection.
+period.  If the value is zero (0), AnterosDBCP will attempt to obtain and validate a connection.
 If a connection is obtained, but fails validation, an exception will be thrown and the pool
 not started.  However, if a connection cannot be obtained, the pool will start, but later 
 efforts to obtain a connection may fail.  A value less than zero will bypass any initial
@@ -214,7 +159,7 @@ in the background.  Consequently, later efforts to obtain a connection may fail.
 *Default: 1*
 
 &#10062;``isolateInternalQueries``<br/>
-This property determines whether HikariCP isolates internal pool queries, such as the
+This property determines whether AnterosDBCP isolates internal pool queries, such as the
 connection alive test, in their own transaction.  Since these are typically read-only
 queries, it is rarely necessary to encapsulate them in their own transaction.  This
 property only applies if ``autoCommit`` is disabled.
@@ -249,7 +194,7 @@ treated as a connection failure and the standard retry logic will be followed.
 *Default: none*
 
 &#128288;``driverClassName``<br/>
-HikariCP will attempt to resolve a driver through the DriverManager based solely on the ``jdbcUrl``,
+AnterosDBCP will attempt to resolve a driver through the DriverManager based solely on the ``jdbcUrl``,
 but for some older drivers the ``driverClassName`` must also be specified.  Omit this property unless
 you get an obvious error message indicating that the driver was not found.
 *Default: none*
@@ -276,7 +221,7 @@ is disabled.  Lowest acceptable value for enabling leak detection is 2000 (2 sec
 &#10145;``dataSource``<br/>
 This property is only available via programmatic configuration or IoC container.  This property
 allows you to directly set the instance of the ``DataSource`` to be wrapped by the pool, rather than
-having HikariCP construct it via reflection.  This can be useful in some dependency injection
+having AnterosDBCP construct it via reflection.  This can be useful in some dependency injection
 frameworks. When this property is specified, the ``dataSourceClassName`` property and all
 DataSource-specific properties will be ignored.
 *Default: none*
@@ -296,7 +241,7 @@ where threads can only be created through a ``ThreadFactory`` provided by the ap
 &#10145;``scheduledExecutor``<br/>
 This property is only available via programmatic configuration or IoC container.  This property
 allows you to set the instance of the ``java.util.concurrent.ScheduledExecutorService`` that will
-be used for various internally scheduled tasks.  If supplying HikariCP with a ``ScheduledThreadPoolExecutor``
+be used for various internally scheduled tasks.  If supplying AnterosDBCP with a ``ScheduledThreadPoolExecutor``
 instance, it is recommended that ``setRemoveOnCancelPolicy(true)`` is used.
 *Default: none*
 
@@ -304,14 +249,14 @@ instance, it is recommended that ``setRemoveOnCancelPolicy(true)`` is used.
 
 #### Missing Knobs
 
-HikariCP has plenty of "knobs" to turn as you can see above, but comparatively less than some other pools.
-This is a design philosophy.  The HikariCP design aesthetic is Minimalism.  In keeping with the
+AnterosDBCP has plenty of "knobs" to turn as you can see above, but comparatively less than some other pools.
+This is a design philosophy.  The AnterosDBCP design aesthetic is Minimalism.  In keeping with the
 *simple is better* or *less is more* design philosophy, some configuration axis are intentionally left out.
 
 #### Statement Cache
 
 Many connection pools, including Apache DBCP, Vibur, c3p0 and others offer ``PreparedStatement`` caching.
-HikariCP does not.  Why?
+AnterosDBCP does not.  Why?
 
 At the connection pool layer ``PreparedStatements`` can only be cached *per connection*.  If your application
 has 250 commonly executed queries and a pool of 20 connections you are asking your database to hold on to
@@ -333,11 +278,9 @@ and will negatively impact your application performance compared to driver-provi
 Like Statement caching, most major database vendors support statement logging through
 properties of their own driver.  This includes Oracle, MySQL, Derby, MSSQL, and others.  Some
 even support slow query logging.  For those few databases that do not support it, several options are available.
-We have received [a report that p6spy works well](https://github.com/brettwooldridge/HikariCP/issues/57#issuecomment-354647631),
-and also note the availability of [log4jdbc](https://github.com/arthurblake/log4jdbc) and [jdbcdslog-exp](https://code.google.com/p/jdbcdslog-exp/).
 
-#### Rapid Recovery
-Please read the [Rapid Recovery Guide](https://github.com/brettwooldridge/HikariCP/wiki/Rapid-Recovery) for details on how to configure your driver and system for proper recovery from database restart and network partition events.
+
+
 
 ----------------------------------------------------
 
@@ -397,8 +340,6 @@ There is also a System property available, ``hikaricp.configurationFile``, that 
 location of a properties file.  If you intend to use this option, construct a ``HikariConfig`` or ``HikariDataSource``
 instance using the default constructor and the properties file will be loaded.
 
-### Performance Tips
-[MySQL Performance Tips](https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration)
 
 ### Popular DataSource Class Names
 
@@ -429,65 +370,14 @@ Here is a list of JDBC *DataSource* classes for popular databases:
 | SQLite           | xerial       | org.sqlite.SQLiteDataSource |
 | SyBase           | jConnect     | com.sybase.jdbc4.jdbc.SybDataSource |
 
-### Play Framework Plugin
 
-Note Play 2.4 now uses HikariCP by default.  A new plugin has come up for the the Play framework; [play-hikaricp](http://edulify.github.io/play-hikaricp.edulify.com/).  If you're using the excellent Play framework,  your application deserves HikariCP.  Thanks Edulify Team!
-
-### Clojure Wrapper
-
-A new Clojure wrapper has been created by [tomekw](https://github.com/tomekw) and can be [found here](https://github.com/tomekw/hikari-cp).
-
-### JRuby Wrapper
-
-A new JRuby wrapper has been created by [tomekw](https://github.com/tomekw) and can be [found here](https://github.com/tomekw/hucpa).
 
 ----------------------------------------------------
-
-### Support <sup><sup>&#128172;</sup></sup>
-
-Google discussion group [HikariCP here](https://groups.google.com/d/forum/hikari-cp), growing [FAQ](https://github.com/brettwooldridge/HikariCP/wiki/FAQ).
-
-[![](https://raw.github.com/wiki/brettwooldridge/HikariCP/twitter.png)](https://twitter.com/share?text=Interesting%20JDBC%20Connection%20Pool&hashtags=HikariCP&url=https%3A%2F%2Fgithub.com%2Fbrettwooldridge%2FHikariCP)&nbsp;[![](https://raw.github.com/wiki/brettwooldridge/HikariCP/facebook.png)](http://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fgithub.com%2Fbrettwooldridge%2FHikariCP&width&layout=standard&action=recommend&show_faces=true&share=false&height=80)
-
-### Wiki
-
-Don't forget the [Wiki](https://github.com/brettwooldridge/HikariCP/wiki) for additional information such as:
- * [FAQ](https://github.com/brettwooldridge/HikariCP/wiki/FAQ)
- * [Hibernate 4.x Configuration](https://github.com/brettwooldridge/HikariCP/wiki/Hibernate4)
- * [MySQL Configuration Tips](https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration)
- * etc.
-
-----------------------------------------------------
-
 ### Requirements
 
  &#8658; Java 8+ (Java 6/7 artifacts are in maintenance mode)<br/>
  &#8658; slf4j library<br/>
 
-### Sponsors
-High-performance projects can never have too many tools!  We would like to thank the following companies:
-
-Thanks to [ej-technologies](https://www.ej-technologies.com) for their excellent all-in-one profiler, [JProfiler](https://www.ej-technologies.com/products/jprofiler/overview.html).
-
-YourKit supports open source projects with its full-featured Java Profiler.  Click the YourKit logo below to learn more.<br/>
-[![](https://github.com/brettwooldridge/HikariCP/wiki/yklogo.png)](http://www.yourkit.com/java/profiler/index.jsp)<br/>
-
-
-### Contributions
-
-Please perform changes and submit pull requests from the ``dev`` branch instead of ``master``.  Please set your editor to use spaces instead of tabs, and adhere to the apparent style of the code you are editing.  The ``dev`` branch is always more "current" than the ``master`` if you are looking to live life on the edge.
-
-[Build Status]:https://travis-ci.org/brettwooldridge/HikariCP
-[Build Status img]:https://travis-ci.org/brettwooldridge/HikariCP.svg?branch=dev
-
-[Coverage Status]:https://codecov.io/gh/brettwooldridge/HikariCP
-[Coverage Status img]:https://codecov.io/gh/brettwooldridge/HikariCP/branch/dev/graph/badge.svg
 
 [license]:LICENSE
 [license img]:https://img.shields.io/badge/license-Apache%202-blue.svg
-
-[Maven Central]:https://maven-badges.herokuapp.com/maven-central/com.zaxxer/HikariCP
-[Maven Central img]:https://maven-badges.herokuapp.com/maven-central/com.zaxxer/HikariCP/badge.svg
-
-[Javadocs]:http://javadoc.io/doc/com.zaxxer/HikariCP
-[Javadocs img]:http://javadoc.io/badge/com.zaxxer/HikariCP.svg
