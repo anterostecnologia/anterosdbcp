@@ -19,7 +19,7 @@ Ou [faça o download daqui](http://search.maven.org/#search%7Cga%7C1%7Cbr.com.an
 ------------------------------
 #### Configuração
 
-O AnterosDBCP vem com padrões *sane* que apresentam bom desempenho na maioria das implantações sem ajustes adicionais. **Cada propriedade é opcional, exceto os itens "essenciais" marcados abaixo.**
+O AnterosDBCP vem com padrões que apresentam bom desempenho na maioria das implantações sem ajustes adicionais. **Cada propriedade é opcional, exceto os itens "essenciais" marcados abaixo.**
 
 <sup>&#128206;</sup>&nbsp;*O AnterosDBCP usa milissegundos para todos os valores de tempo.*
 
@@ -28,44 +28,44 @@ O AnterosDBCP vem com padrões *sane* que apresentam bom desempenho na maioria d
 ##### Essenciais
 
 &#128288;``dataSourceClassName``<br/>
-This is the name of the ``DataSource`` class provided by the JDBC driver.  Consult the
-documentation for your specific JDBC driver to get this class name, or see the [table](https://github.com/brettwooldridge/AnterosDBCP#popular-datasource-class-names) below.
-Note XA data sources are not supported.  XA requires a real transaction manager like
-[bitronix](https://github.com/bitronix/btm). Note that you do not need this property if you are using
-``jdbcUrl`` for "old-school" DriverManager-based JDBC driver configuration.
+Este é o nome da classe `` DataSource`` fornecida pelo driver JDBC. Consulte o
+documentação para o seu driver JDBC específico para obter esse nome de classe ou consulte a [tabela] (https://github.com/brettwooldridge/AnterosDBCP#popular-datasource-class-names) abaixo.
+Nota As fontes de dados XA não são suportadas. XA requer um gerenciador de transações real como
+[bitronix] (https://github.com/bitronix/btm). Observe que você não precisa dessa propriedade se estiver usando
+`` jdbcUrl`` para a configuração do driver JDBC baseado no DriverManager "old-school".
 *Default: none*
 
 *- or -*
 
 &#128288;``jdbcUrl``<br/>
-This property directs AnterosDBCP to use "DriverManager-based" configuration.  We feel that DataSource-based
-configuration (above) is superior for a variety of reasons (see below), but for many deployments there is
-little significant difference.  **When using this property with "old" drivers, you may also need to set
-the  ``driverClassName`` property, but try it first without.**  Note that if this property is used, you may
-still use *DataSource* properties to configure your driver and is in fact recommended over driver parameters
-specified in the URL itself.
+Esta propriedade instrui o AnterosDBCP a usar a configuração "DriverManager". Achamos que o DataSource
+A configuração (acima) é superior por vários motivos (veja abaixo), mas em muitas implantações há
+pouca diferença significativa. **Ao usar esta propriedade com drivers "antigos", também será necessário definir
+a propriedade `` driverClassName``, mas tente primeiro sem.** Observe que, se essa propriedade for usada, você poderá
+ainda use as propriedades * DataSource * para configurar seu driver e é de fato recomendado sobre os parâmetros do driver
+especificado no próprio URL.
 *Default: none*
 
 ***
 
 &#128288;``username``<br/>
-This property sets the default authentication username used when obtaining *Connections* from
-the underlying driver.  Note that for DataSources this works in a very deterministic fashion by
-calling ``DataSource.getConnection(*username*, password)`` on the underlying DataSource.  However,
-for Driver-based configurations, every driver is different.  In the case of Driver-based, HikariAnterosDBCPCP
-will use this ``username`` property to set a ``user`` property in the ``Properties`` passed to the
-driver's ``DriverManager.getConnection(jdbcUrl, props)`` call.  If this is not what you need,
-skip this method entirely and call ``addDataSourceProperty("username", ...)``, for example.
+Essa propriedade define o nome de usuário de autenticação padrão usado ao obter *Connections* de
+o driver subjacente. Observe que para DataSources isso funciona de uma maneira muito determinística,
+chamando `` DataSource.getConnection (*nome de usuário*, senha) `` no DataSource subjacente. Contudo,
+para configurações baseadas em driver, cada driver é diferente. No caso de Driver-based, AnterosDBCP
+usará essa propriedade `` username`` para definir uma propriedade `` user`` no `` Properties`` passado para o
+chamada `` DriverManager.getConnection (jdbcUrl, props) do driver ``. Se não é isso que você precisa,
+pule esse método completamente e chame `` addDataSourceProperty ("nome de usuário", ...) ``, por exemplo.
 *Default: none*
 
 &#128288;``password``<br/>
-This property sets the default authentication password used when obtaining *Connections* from
-the underlying driver. Note that for DataSources this works in a very deterministic fashion by
-calling ``DataSource.getConnection(username, *password*)`` on the underlying DataSource.  However,
-for Driver-based configurations, every driver is different.  In the case of Driver-based, AnterosDBCP
-will use this ``password`` property to set a ``password`` property in the ``Properties`` passed to the
-driver's ``DriverManager.getConnection(jdbcUrl, props)`` call.  If this is not what you need,
-skip this method entirely and call ``addDataSourceProperty("pass", ...)``, for example.
+Essa propriedade define a senha de autenticação padrão usada ao obter *Connections* de
+o driver subjacente. Observe que para DataSources isso funciona de uma maneira muito determinística,
+chamando `` DataSource.getConnection (nome de usuário, *senha*) `` no DataSource subjacente. Contudo,
+para configurações baseadas em driver, cada driver é diferente. No caso de Driver-based, o AnterosDBCP
+usará essa propriedade `` password`` para definir uma propriedade `` password`` no `` Properties`` passado para o
+chamada `` DriverManager.getConnection (jdbcUrl, props) do driver ``. Se não é isso que você precisa,
+pule esse método completamente e chame `` addDataSourceProperty ("pass", ...) ``, por exemplo.
 *Default: none*
 
 ##### Frequently used
