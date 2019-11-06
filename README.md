@@ -1,12 +1,4 @@
-<h1><img src="https://github.com/brettwooldridge/HikariCP/wiki/Hikari.png"> HikariCP<sup><sup>&nbsp;It's Faster.</sup></sup><sub><sub><sup>Hi·ka·ri [hi·ka·'lē] &#40;<i>Origin: Japanese</i>): light; ray.</sup></sub></sub></h1><br>
-
-[![][Build Status img]][Build Status]
-[![][Coverage Status img]][Coverage Status]
-[![][license img]][license]
-[![][Maven Central img]][Maven Central]
-[![][Javadocs img]][Javadocs]
-
-Fast, simple, reliable.  HikariCP is a "zero-overhead" production ready JDBC connection pool.  At roughly 130Kb, the library is very light.  Read about [how we do it here](https://github.com/brettwooldridge/HikariCP/wiki/Down-the-Rabbit-Hole).
+Fast, simple, reliable.  AnterosDBCP is a "zero-overhead" production ready JDBC connection pool.  At roughly 130Kb, the library is very light.  
 
 &nbsp;&nbsp;&nbsp;<sup>**"Simplicity is prerequisite for reliability."**<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- *Edsger Dijkstra*</sup>
@@ -16,27 +8,12 @@ Fast, simple, reliable.  HikariCP is a "zero-overhead" production ready JDBC con
 _Java 8 thru 11 maven artifact:_
 ```xml
     <dependency>
-        <groupId>com.zaxxer</groupId>
-        <artifactId>HikariCP</artifactId>
-        <version>3.4.1</version>
+        <groupId>br.com.anteros</groupId>
+        <artifactId>AnterosDBCP</artifactId>
+        <version>1.0</version>
     </dependency>
 ```
-_Java 7 maven artifact (*maintenance mode*):_
-```xml
-    <dependency>
-        <groupId>com.zaxxer</groupId>
-        <artifactId>HikariCP-java7</artifactId>
-        <version>2.4.13</version>
-    </dependency>
-```
-_Java 6 maven artifact (*maintenance mode*):_
-```xml
-    <dependency>
-        <groupId>com.zaxxer</groupId>
-        <artifactId>HikariCP-java6</artifactId>
-        <version>2.3.13</version>
-    </dependency>
-```
+
 Or [download from here](http://search.maven.org/#search%7Cga%7C1%7Cbr.com.anteros.dbcpcp).
 
 ----------------------------------------------------
