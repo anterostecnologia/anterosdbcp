@@ -286,9 +286,9 @@ even support slow query logging.  For those few databases that do not support it
 
 ### Initialization
 
-You can use the ``HikariConfig`` class like so<sup>1</sup>:
+You can use the ``AnterosDBCPConfig`` class like so<sup>1</sup>:
 ```java
-HikariConfig config = new HikariConfig();
+AnterosDBCPConfig config = new AnterosDBCPConfig();
 config.setJdbcUrl("jdbc:mysql://localhost:3306/simpsons");
 config.setUsername("bart");
 config.setPassword("51mp50n");
@@ -296,13 +296,13 @@ config.addDataSourceProperty("cachePrepStmts", "true");
 config.addDataSourceProperty("prepStmtCacheSize", "250");
 config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
-HikariDataSource ds = new HikariDataSource(config);
+AnterosDBCPDataSource ds = new AnterosDBCPDataSource(config);
 ```
 &nbsp;<sup><sup>1</sup> MySQL-specific example, DO NOT COPY VERBATIM.</sup>
 
-or directly instantiate a ``HikariDataSource`` like so:
+or directly instantiate a ``AnterosDBCPDataSource`` like so:
 ```java
-HikariDataSource ds = new HikariDataSource();
+AnterosDBCPDataSource ds = new AnterosDBCPDataSource();
 ds.setJdbcUrl("jdbc:mysql://localhost:3306/simpsons");
 ds.setUsername("bart");
 ds.setPassword("51mp50n");
@@ -311,8 +311,8 @@ ds.setPassword("51mp50n");
 or property file based:
 ```java
 // Examines both filesystem and classpath for .properties file
-HikariConfig config = new HikariConfig("/some/path/hikari.properties");
-HikariDataSource ds = new HikariDataSource(config);
+AnterosDBCPConfig config = new AnterosDBCPConfig("/some/path/hikari.properties");
+AnterosDBCPDataSource ds = new AnterosDBCPDataSource(config);
 ```
 Example property file:
 ```ini
@@ -332,12 +332,12 @@ props.setProperty("dataSource.password", "test");
 props.setProperty("dataSource.databaseName", "mydb");
 props.put("dataSource.logWriter", new PrintWriter(System.out));
 
-HikariConfig config = new HikariConfig(props);
-HikariDataSource ds = new HikariDataSource(config);
+AnterosDBCPConfig config = new AnterosDBCPConfig(props);
+AnterosDBCPDataSource ds = new AnterosDBCPDataSource(config);
 ```
 
 There is also a System property available, ``hikaricp.configurationFile``, that can be used to specify the
-location of a properties file.  If you intend to use this option, construct a ``HikariConfig`` or ``HikariDataSource``
+location of a properties file.  If you intend to use this option, construct a ``AnterosDBCPConfig`` or ``AnterosDBCPDataSource``
 instance using the default constructor and the properties file will be loaded.
 
 
