@@ -14,7 +14,7 @@ _Java 8 thru 11 maven artifact:_
     </dependency>
 ```
 
-Ou [faça o download daqui](http://search.maven.org/#search%7Cga%7C1%7Cbr.com.anteros.dbcp).
+Ou [faça o download daqui](http://search.maven.org/#search%7Cga%7C1%7Ca:Anteros-DBCP).
 
 ------------------------------
 #### Configuração
