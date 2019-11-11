@@ -9,8 +9,8 @@ _Java 8 thru 11 maven artifact:_
 ```xml
     <dependency>
         <groupId>br.com.anteros</groupId>
-        <artifactId>AnterosDBCP</artifactId>
-        <version>1.0</version>
+        <artifactId>Anteros-DBCP</artifactId>
+        <version>1.0.0</version>
     </dependency>
 ```
 
