@@ -45,7 +45,7 @@ public class AnterosDBCPDataSource extends AnterosDBCPConfig implements DataSour
 
    private final AtomicBoolean isShutdown = new AtomicBoolean();
 
-   private final AnterosDBCPPool fastPathPool;
+   private final AnterosDBCPPool fastPathPool; 
    private volatile AnterosDBCPPool pool;
 
    /**

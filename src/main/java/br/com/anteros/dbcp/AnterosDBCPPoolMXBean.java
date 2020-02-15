@@ -24,7 +24,7 @@ import javax.sql.DataSource;
  * @author Brett Wooldridge
  */
 public interface AnterosDBCPPoolMXBean
-{
+{ 
    /**
     * Get the number of currently idle connections in the pool.
     * <p>

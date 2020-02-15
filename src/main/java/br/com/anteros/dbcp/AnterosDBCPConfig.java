@@ -56,7 +56,7 @@ public class AnterosDBCPConfig implements AnterosDBCPConfigMXBean
    private static final long CONNECTION_TIMEOUT = SECONDS.toMillis(30);
    private static final long VALIDATION_TIMEOUT = SECONDS.toMillis(5);
    private static final long IDLE_TIMEOUT = MINUTES.toMillis(10);
-   private static final long MAX_LIFETIME = MINUTES.toMillis(30);
+   private static final long MAX_LIFETIME = MINUTES.toMillis(30); 
    private static final int DEFAULT_POOL_SIZE = 10;
 
    private static boolean unitTest = false;
@@ -76,7 +76,7 @@ public class AnterosDBCPConfig implements AnterosDBCPConfigMXBean
 
    // Properties NOT changeable at runtime
    //
-   private long initializationFailTimeout;
+   private long initializationFailTimeout; 
    private String connectionInitSql;
    private String connectionTestQuery;
    private String dataSourceClassName;

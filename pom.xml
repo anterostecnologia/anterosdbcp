@@ -36,7 +36,7 @@
 
    <groupId>br.com.anteros</groupId>
    <artifactId>Anteros-DBCP</artifactId>
-   <version>1.0.0</version>
+   <version>1.0.1</version>
    <packaging>bundle</packaging>
 
 
@@ -786,6 +786,86 @@
 					</snapshots>
 				</repository>
 			</repositories>
+		</profile>
+		
+		<profile>
+			<id>local</id>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-compiler-plugin</artifactId>
+							<version>3.1</version>
+							<configuration>
+								<target>${java.versao}</target>
+								<source>${java.versao}</source>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-source-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>attach-sources</id>
+									<goals>
+										<goal>jar</goal>
+									</goals>
+								</execution>
+							</executions>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-javadoc-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>attach-javadocs</id>
+									<goals>
+										<goal>jar</goal>
+									</goals>
+
+								</execution>
+							</executions>
+							<configuration>
+								<doclint>none</doclint>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-dependency-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>copy-dependencies</id>
+									<phase>prepare-package</phase>
+									<goals>
+										<goal>copy-dependencies</goal>
+									</goals>
+									<configuration>
+										<outputDirectory>${project.build.directory}/lib</outputDirectory>
+										<overWriteReleases>false</overWriteReleases>
+										<overWriteSnapshots>false</overWriteSnapshots>
+										<overWriteIfNewer>true</overWriteIfNewer>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-jar-plugin</artifactId>
+							<configuration>
+								<archive>
+									<manifest>
+										<addClasspath>true</addClasspath>
+										<classpathPrefix>lib/</classpathPrefix>
+										<mainClass>br.com.anteros.iot.actuators.collectors.CameraQRCodeCollector</mainClass>
+									</manifest>
+								</archive>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+
 		</profile>
 	
 
