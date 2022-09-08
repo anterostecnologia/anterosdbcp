@@ -20,7 +20,7 @@
       <mockito.version>2.23.4</mockito.version>
       <pax.exam.version>4.13.1</pax.exam.version>
       <pax.url.version>2.5.4</pax.url.version>
-      <postgresql.version>42.1.4</postgresql.version>
+      <postgresql.version>42.4.1</postgresql.version>
       <slf4j.version>1.7.25</slf4j.version>
       <log4j.version>2.11.1</log4j.version>
       <commons.csv.version>1.5</commons.csv.version>
